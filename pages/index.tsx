@@ -1,9 +1,11 @@
 import React from 'react'
 import Header from './component/Header'
 import Metas from './component/Metas'
+import Modal from './component/Modal'
 import Person from './component/Person'
 
 export default function Home() {
+  let totalBalance = 12000000
   return (
     <div className='min-h-screen bg-gray-200'>
       <Metas />
@@ -17,9 +19,10 @@ export default function Home() {
         onPress: () => { console.log('hello i was clicked') }
       }]} />
 
+
       <div className='rounded-xl px-4 py-6 mx-5 bg-white'>
         <p className='text-xs text-gray-400 uppercase'>TOTAL BALANCE</p>
-        <p className='font-sans-2 mt-2 text-5xl text-blue-900'>&#8358; 1,200,000</p>
+        <p className='font-sans-2 mt-2 text-5xl text-blue-900'>&#8358; {totalBalance.toLocaleString('en-US')}</p>
       </div>
       <hr />
       {/* Persons */}
@@ -30,6 +33,7 @@ export default function Home() {
         <Person name='John Doe' balance={320000} />
         <Person name='John Doe' balance={320000} />
       </div>
+      <Modal />
     </div>
   )
 }

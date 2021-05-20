@@ -6,18 +6,6 @@ interface Props {
 }
 
 const Person = ({ balance, name }: Props) => {
-    const commarise = (num: number) => {
-        let commarised = '', strNum = num.toString()
-        for (let i = strNum.length - 1; i >= 0; i = i--) {
-            commarised += strNum[i]
-            if (i % 3 == 0) commarised += ','
-        }
-        console.log(commarised);
-        return commarised;
-    }
-    commarise(4000)
-    commarise(444000)
-    commarise(40000)
     return (
         <div className='bg-person-gradient flex items-center px-4 py-6 mx-5 mb-4 rounded-lg'>
             <div className='mr-5'>
@@ -30,7 +18,7 @@ const Person = ({ balance, name }: Props) => {
             </div>
             <div className='flex-1'>
                 <p className='mb-3 text-xl text-blue-200'>{name}</p>
-                <p className='font-sans-2 text-4xl font-light text-white'>&#8358; {balance}</p>
+                <p className='font-sans-2 text-4xl font-light text-white'>&#8358; {balance.toLocaleString('en-US')}</p>
             </div>
             <div>
                 <svg width={38} height={38} viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
