@@ -11,7 +11,7 @@ const Index = () => {
     console.log(id)
 
     const [showAddTran, setShowAddTran] = useState(false)
-    const balance = 34533000
+    const balance = 3453300
     const transactionDate = new Date()
     return (
         <Layout >
