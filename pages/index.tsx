@@ -33,7 +33,13 @@ export default function Home() {
         <Person name='John Doe' balance={320000} />
         <Person name='John Doe' balance={320000} />
       </div>
-      <Modal />
+      <Modal title='Add a new Person' >
+        <div>
+          <label className='block' htmlFor="">Name</label>
+          <input type="text" />
+          <button className='active:bg-blue-800 focus:outline-none block w-full py-3 text-sm font-normal text-white bg-blue-700 rounded-lg'>Add Person</button>
+        </div>
+      </Modal>
     </div>
   )
 }

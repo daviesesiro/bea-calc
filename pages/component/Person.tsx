@@ -6,6 +6,7 @@ interface Props {
 }
 
 const Person = ({ balance, name }: Props) => {
+    balance = balance || 0;
     return (
         <div className='bg-person-gradient flex items-center px-4 py-6 mx-5 mb-4 rounded-lg'>
             <div className='mr-5'>
