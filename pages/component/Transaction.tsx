@@ -5,10 +5,10 @@ interface Props {
     title: string;
     description: string;
     amount: number
-    date: Date
+    transactionDate: Date
 }
 
-const Transaction: React.FC<Props> = ({ receiving, amount, date, title }) => {
+const Transaction: React.FC<Props> = ({ receiving, amount, transactionDate, title }) => {
     console.log(receiving)
     const Icon = receiving ? <svg width={24} height={14} viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M23 1L13.5 10.5L8.5 5.5L1 13" stroke="#6DFF0E" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
@@ -23,7 +23,7 @@ const Transaction: React.FC<Props> = ({ receiving, amount, date, title }) => {
     return (
         <div className={`relative flex items-center justify-between p-4 rounded-lg mx-5 mb-4
              ${receiving ? 'bg-receive-transaction' : 'bg-send-transaction'} `}>
-            <p className='top-2 right-2 absolute text-xs text-gray-200'>{`${date.getDay()}/${date.getDate()}/${date.getFullYear()}`}</p>
+            {transactionDate && <p className='top-2 right-2 absolute text-xs text-gray-200'>{`${transactionDate.getDay()}/${transactionDate.getDate()}/${transactionDate.getFullYear()}`}</p>}
             <div className='mr-4'>{Icon}</div>
             <div className='flex flex-col flex-1 text-white'>
                 <p className='text-sm'>{title}</p>

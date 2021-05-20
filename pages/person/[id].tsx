@@ -12,7 +12,7 @@ const Index = () => {
 
     const [showAddTran, setShowAddTran] = useState(false)
     const balance = 34533000
-    const date = new Date()
+    const transactionDate = new Date()
     return (
         <Layout >
             <Header title={id as string} actions={[{
@@ -32,11 +32,11 @@ const Index = () => {
 
             {/* Transaction */}
             <div className='mt-8'>
-                <Transaction amount={3000} title='hello 2' receiving description="hello" date={date} />
-                <Transaction amount={3000} title='hello' receiving={false} description="hello" date={date} />
-                <Transaction amount={3000} title='hello 2' receiving description="hello" date={date} />
-                <Transaction amount={3000} title='hello 2' receiving description="hello" date={date} />
-                <Transaction amount={3000} title='hello' receiving={false} description="hello" date={date} />
+                <Transaction amount={3000} title='hello 2' receiving description="hello" transactionDate={transactionDate} />
+                <Transaction amount={3000} title='hello' receiving={false} description="hello" transactionDate={transactionDate} />
+                <Transaction amount={3000} title='hello 2' receiving description="hello" transactionDate={transactionDate} />
+                <Transaction amount={3000} title='hello 2' receiving description="hello" transactionDate={transactionDate} />
+                <Transaction amount={3000} title='hello' receiving={false} description="hello" transactionDate={transactionDate} />
             </div>
 
 
