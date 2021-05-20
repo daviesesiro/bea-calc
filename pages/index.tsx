@@ -1,11 +1,12 @@
 import React from 'react'
+import Header from './component/Header'
 import Metas from './component/Metas'
 
 export default function Home() {
   return (
-    <div className='h-screen bg-red-400'>
+    <div className='min-h-screen bg-gray-100'>
       <Metas />
-asdf
+      <Header title="Hello Beauty" />
     </div>
   )
 }
