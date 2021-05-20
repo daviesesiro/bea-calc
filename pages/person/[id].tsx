@@ -12,6 +12,7 @@ const Index = () => {
 
     const [showAddTran, setShowAddTran] = useState(false)
     const balance = 34533000
+    const date = new Date()
     return (
         <Layout >
             <Header title={id as string} actions={[{
@@ -31,11 +32,11 @@ const Index = () => {
 
             {/* Transaction */}
             <div className='mt-8'>
-                <Transaction amount={3000} title='hello 2' receiving description="hello" date={new Date()} />
-                <Transaction amount={3000} title='hello' receiving={false} description="hello" date={new Date()} />
-                <Transaction amount={3000} title='hello 2' receiving description="hello" date={new Date()} />
-                <Transaction amount={3000} title='hello 2' receiving description="hello" date={new Date()} />
-                <Transaction amount={3000} title='hello' receiving={false} description="hello" date={new Date()} />
+                <Transaction amount={3000} title='hello 2' receiving description="hello" date={date} />
+                <Transaction amount={3000} title='hello' receiving={false} description="hello" date={date} />
+                <Transaction amount={3000} title='hello 2' receiving description="hello" date={date} />
+                <Transaction amount={3000} title='hello 2' receiving description="hello" date={date} />
+                <Transaction amount={3000} title='hello' receiving={false} description="hello" date={date} />
             </div>
 
 
@@ -43,10 +44,16 @@ const Index = () => {
                 <Modal closeModal={() => setShowAddTran(false)} subtitle={`For ${id}`} title='Add a transaction' >
                     <div>
                         <div className='mb-4'>
+                            <label className='block mb-1' htmlFor="title">*Title</label>
+                            <input
+                                className='focus:outline-none w-full p-3 text-lg bg-gray-100 rounded-lg'
+                                placeholder="For cement" id='title' type="text" name='title' />
+                        </div>
+                        <div className='mb-4'>
                             <label className='block mb-1' htmlFor="amount">*Amount</label>
                             <input
                                 className='focus:outline-none w-full p-3 text-lg bg-gray-100 rounded-lg'
-                                placeholder="1,000" id='amount' type="text" name='person' />
+                                placeholder="1,000" id='amount' type="text" name='amount' />
                         </div>
                         <div className='mb-10'>
                             <label className='block mb-1' htmlFor="amount">*Amount</label>
@@ -56,7 +63,6 @@ const Index = () => {
                         </div>
 
                         <button className='active:bg-blue-800 focus:outline-none block w-full py-3 text-sm font-normal text-white bg-blue-700 rounded-lg'>Add Transaction</button>
-
                     </div>
                 </Modal>}
         </Layout>
