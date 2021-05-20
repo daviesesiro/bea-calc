@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import Header from '../component/Header'
-import Layout from '../component/Layout'
-import Transaction from '../component/Transaction'
-import Modal from '../component/Modal'
+import Header from '../../components/Header'
+import Layout from '../../components/Layout'
+import Transaction from '../../components/Transaction'
+import Modal from '../../components/Modal'
 
 const Index = () => {
     const router = useRouter()

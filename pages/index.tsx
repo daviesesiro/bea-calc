@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import Header from './component/Header'
-import Layout from './component/Layout'
-import Modal from './component/Modal'
-import Person from './component/Person'
+import Header from '../components/Header'
+import Layout from '../components/Layout'
+import Modal from '../components/Modal'
+import Person from '../components/Person'
 
 export default function Home() {
   let totalBalance = 12000000
