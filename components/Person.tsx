@@ -10,7 +10,7 @@ const Person = ({ balance, name }: Props) => {
     balance = balance || 0;
     return (
         <Link href={`/person/${name}`}>
-            <a className='bg-person-gradient flex items-center px-4 py-6 mx-5 mb-4 rounded-lg'>
+            <a className='bg-person-gradient flex items-center px-3 py-2 mx-5 mb-4 rounded-lg'>
                 <div className='mr-5'>
                     <svg width={35} height={35} viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width={35} height={35} rx={6} fill="white" />
@@ -20,11 +20,11 @@ const Person = ({ balance, name }: Props) => {
 
                 </div>
                 <div className='flex-1'>
-                    <p className='mb-3 text-xl text-blue-200'>{name}</p>
-                    <p className='font-sans-2 text-4xl font-light text-white'>&#8358; {balance.toLocaleString('en-US')}</p>
+                    <p className='mb-1 text-xs text-blue-200'>{name}</p>
+                    <p className='font-sans-2 text-2xl font-light text-white'>&#8358; {balance.toLocaleString('en-US')}</p>
                 </div>
                 <div>
-                    <svg width={38} height={38} viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width={30} height={30} viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx={19} cy={19} r="18.5" stroke="#E3F6F5" />
                         <path d="M12 19H26" stroke="#E3F6F5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M19 12L26 19L19 26" stroke="#E3F6F5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />

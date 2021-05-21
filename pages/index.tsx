@@ -27,14 +27,13 @@ export default function Home() {
       </div>
 
       {/* Persons */}
-      <div className='my-8'>
-        <Person name='John Doe' balance={52000} />
-        <Person name='Him Her' balance={30000} />
-        <Person name='She her' balance={200050} />
-        <Person name='Father Mother' balance={55000} />
-        <Person name='Father Mother' balance={55000} />
-        <Person name='Father Mother' balance={55000} />
-        <Person name='Father Mother' balance={55000} />
+      <p className='mx-5 mt-8 text-gray-700'>Persons</p>
+      <div className='mt-3 mb-4'>
+        <Person name='Uncle Tony' balance={52000} />
+        <Person name='Uncle Daniel' balance={30000} />
+        <Person name='Aunty Florence' balance={200050} />
+        <Person name='Aunty Joy' balance={55000} />
+        <Person name='Grandma' balance={55000} />
       </div>
 
       {isModalOpen &&

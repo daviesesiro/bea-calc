@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "localbase": "^0.7.5",
     "next": "10.2.2",
     "next-pwa": "^5.2.21",
     "react": "17.0.2",
