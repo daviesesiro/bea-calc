@@ -2,15 +2,16 @@ import React from 'react'
 import Link from 'next/link'
 
 interface Props {
+    id: string
     name: string;
     balance: number
 }
 
-const Person = ({ balance, name }: Props) => {
+const Person = ({ balance, name, id }: Props) => {
     balance = balance || 0;
     return (
-        <Link href={`/person/${name}`}>
-            <a className='bg-person-gradient flex items-center px-3 py-2 mx-5 mb-4 rounded-lg'>
+        <Link href={`/person/${id}?name=${name}`}>
+            <a className='bg-person-gradient flex items-center px-3 py-3 mx-5 mb-4 rounded-lg'>
                 <div className='mr-5'>
                     <svg width={35} height={35} viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width={35} height={35} rx={6} fill="white" />
@@ -20,8 +21,8 @@ const Person = ({ balance, name }: Props) => {
 
                 </div>
                 <div className='flex-1'>
-                    <p className='mb-1 text-xs text-blue-200'>{name}</p>
-                    <p className='font-sans-2 text-2xl font-light text-white'>&#8358; {balance.toLocaleString('en-US')}</p>
+                    <p className='mb-1 text-sm text-blue-200 capitalize'>{name}</p>
+                    <p className='font-sans-2 text-3xl font-light text-white'>&#8358; {balance.toLocaleString('en-US')}</p>
                 </div>
                 <div>
                     <svg width={30} height={30} viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">

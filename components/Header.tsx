@@ -10,7 +10,7 @@ interface Props {
 const Header = ({ title, actions, home }: Props) => {
     return (
         <React.Fragment>
-            <div className='rounded-b-xl fixed top-0 left-0 right-0 flex items-center justify-between p-4 bg-white'>
+            <div className='rounded-b-xl fixed top-0 left-0 right-0 flex items-center justify-between px-4 py-3 bg-white'>
                 {!home &&
                     <button className='focus:outline-none p-2 mr-4' onClick={useRouter().back}>
                         <svg width={16} height={16} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,7 +20,7 @@ const Header = ({ title, actions, home }: Props) => {
 
                     </button>
                 }
-                <h1 className='flex-1 font-sans text-2xl font-bold'>
+                <h1 className='flex-1 font-sans text-xl capitalize'>
                     {title}
                 </h1>
                 <div>

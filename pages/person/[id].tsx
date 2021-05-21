@@ -8,14 +8,19 @@ import Modal from '../../components/Modal'
 const Index = () => {
     const router = useRouter()
     const { id } = router.query
-    console.log(id)
+
+    console.log(router)
+    const params = new URLSearchParams(router.asPath.split('?')[1])
+    const personName = params.get('name')
+
+    if (personName == '') router.back()
 
     const [showAddTran, setShowAddTran] = useState(false)
     const balance = 3453300
     const transactionDate = new Date()
     return (
         <Layout >
-            <Header title={id as string} actions={[{
+            <Header title={personName} actions={[{
                 icon: <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 5V19" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M5 12H19" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />

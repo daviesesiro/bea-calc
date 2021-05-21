@@ -7,6 +7,7 @@ interface Props {
     description: string;
     amount: number
     transactionDate: Date
+
 }
 
 const Transaction: React.FC<Props> = ({ receiving, amount, description, transactionDate, title }) => {
