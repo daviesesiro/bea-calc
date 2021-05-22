@@ -29,7 +29,6 @@ export const StateContextProvider: React.FC = ({ children }) => {
                     acc[key].push(cur);
                     return acc
                 }, {})
-            console.log(transactions)
             setState(old => ({ ...old, persons, totalBalance, transactions }));
         }
 
