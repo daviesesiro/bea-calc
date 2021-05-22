@@ -68,18 +68,20 @@ const Index = () => {
                     <path d="M5.00001 4.2V2.6C5.00001 2.17565 5.16858 1.76869 5.46864 1.46863C5.76869 1.16857 6.17566 1 6.60001 1H9.80001C10.2244 1 10.6313 1.16857 10.9314 1.46863C11.2314 1.76869 11.4 2.17565 11.4 2.6V4.2M13.8 4.2V15.4C13.8 15.8243 13.6314 16.2313 13.3314 16.5314C13.0313 16.8314 12.6244 17 12.2 17H4.20001C3.77566 17 3.36869 16.8314 3.06864 16.5314C2.76858 16.2313 2.60001 15.8243 2.60001 15.4V4.2H13.8Z" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                 </svg>,
                 onPress: async () => {
-                    await DB.deletePerson(id as string)
-                    setState(old => {
-                        delete old.transactions[id as string]
-                        return {
-                            ...old,
-                            totalBalance: old.totalBalance - old.persons.find(x => x.id == id as string).balance,
-                            persons: old.persons.filter(x => x.id != id),
-                            transactions: old.transactions
-                        }
-                    })
+                    if (confirm('Are you sure you want to delete this person? ')) {
+                        await DB.deletePerson(id as string)
+                        setState(old => {
+                            delete old.transactions[id as string]
+                            return {
+                                ...old,
+                                totalBalance: old.totalBalance - old.persons.find(x => x.id == id as string).balance,
+                                persons: old.persons.filter(x => x.id != id),
+                                transactions: old.transactions
+                            }
+                        })
 
-                    router.push('/')
+                        router.push('/')
+                    }
                 }
             }]} />
 
