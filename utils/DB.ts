@@ -90,28 +90,35 @@ export default {
     type: string;
   }) => {
     const db = await getDb();
-    return new Promise(async () => {
-      const person = await db.get("persons", personId);
 
-      if (type == "Sending" && person.balance < amount)
-        throw Error("Insufficient funds");
+    const person = await db.get("persons", personId);
 
-      await db.add("transactions", {
-        title,
-        amount,
-        type,
-        description,
-        dateAdded: new Date(),
-        personId,
-        id: uuid(),
-      });
+    if (type == "Sending" && person.balance < amount)
+      throw Error("Insufficient funds");
 
-      await db.put("persons", {
-        ...person,
-        balance:
-          type == "Sending" ? person.balance - amount : person.balance + amount,
-      });
+    const txId = await db.add("transactions", {
+      title,
+      amount,
+      type,
+      description,
+      dateAdded: new Date(),
+      personId,
+      id: uuid(),
     });
+
+    await db.put("persons", {
+      ...person,
+      balance:
+        type == "Sending" ? person.balance - amount : person.balance + amount,
+    });
+    return txId;
+  },
+  getTransactionsByPerson: async (id: string) => {
+    const db = await getDb();
+    return db.getAllFromIndex("transactions", "personId-idx", id);
+  },
+  getTransactions: async () => {
+    return (await getDb()).getAll("transactions");
   },
   getTotalBalance: async () => {
     const db = await getDb();

@@ -5,6 +5,7 @@ import Layout from '../../components/Layout'
 import Transaction from '../../components/Transaction'
 import Modal from '../../components/Modal'
 import DB from '../../utils/DB'
+import { useStateContext } from '../../Context'
 
 const Index = () => {
     const router = useRouter()
@@ -20,7 +21,6 @@ const Index = () => {
 
     const [showAddTran, setShowAddTran] = useState(false)
     const [balance, setBalance] = useState<number>(Number(initialBalance))
-    const date = new Date()
     useEffect(() => {
         const init = async () => {
             const balance = (await DB.getPersonById(id as string)).balance;
@@ -32,11 +32,24 @@ const Index = () => {
 
 
     const [formState, setformState] = useState({ title: '', amount: 0, description: '', type: 'Receiving' })
-
+    const { state, setState } = useStateContext()
+    const txs = state.transactions[id as string]
     const handleOnChange = (e) => setformState(prev => ({ ...prev, [e.target.name]: e.target.name == 'amount' ? Number(e.target.value) : e.target.value }))
 
     const handleSubmit = async () => {
-        await DB.addTransaction({ ...formState, personId: id as string })
+        const transactionId = await DB.addTransaction({ ...formState, personId: id as string }) as string
+        console.log('hello 1')
+        setShowAddTran(false)
+        console.log('hello 2')
+        setState(old =>
+        ({
+            ...old,
+            transactions: {
+                ...old.transactions,
+                [id as string]: [{ ...formState, dateAdded: new Date(), id: transactionId, personId: id as string },
+                ...old.transactions[id as string]]
+            }
+        }))
     }
     return (
         <Layout >
@@ -57,8 +70,11 @@ const Index = () => {
 
             {/* Transaction */}
             <div className='mt-8'>
-                <Transaction amount={4400} title='hello 2' receiving description="hello" transactionDate={date} />
-                <Transaction amount={1000} title='hello' receiving={false} description="hello" transactionDate={date} />
+                {
+                    txs && txs.length > 0 && txs.map(({ title, amount, type, id, description, dateAdded }) => (
+                        <Transaction key={`tx-${id}`} amount={amount} id={id} title={title} type={type} description={description} transactionDate={dateAdded} />))
+                }
+
             </div>
 
 

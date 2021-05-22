@@ -3,9 +3,11 @@ import Header from '../components/Header'
 import Layout from '../components/Layout'
 import Modal from '../components/Modal'
 import Person from '../components/Person'
+import { useStateContext } from '../Context'
 import DB, { IPerson } from '../utils/DB'
+
 export default function Home() {
-  const [totalBalance, setTotalBalance] = useState(0)
+  const { state, setState } = useStateContext()
   const [personName, setPersonName] = useState('')
   const [isModalOpen, setModalState] = useState(false)
   const [submitActive, setSubmitActive] = useState(false)
@@ -17,7 +19,8 @@ export default function Home() {
       try {
         const id = await DB.addPerson(personName.toLowerCase())
         setModalState(false);
-        setPersons(prev => [...prev, { name: personName, dateAdded: new Date(), balance: 0, id }])
+        setState(prev => ({ ...prev, persons: [...prev.persons, { name: personName, dateAdded: new Date(), balance: 0, id }] }))
+
       } catch (e) {
         if (e.message.includes('uniqueness')) setError('That name already dey oh, change am jor!')
       }
@@ -30,17 +33,6 @@ export default function Home() {
     if (personName == '') setSubmitActive(false)
     else setSubmitActive(true)
   }, [personName])
-
-  const [persons, setPersons] = useState<IPerson[]>()
-
-
-  useEffect(() => {
-    const updatePersonState = async () => {
-      setPersons(await DB.getPersons());
-      setTotalBalance(await DB.getTotalBalance());
-    }
-    updatePersonState()
-  }, [])
 
   return (
     <Layout>
@@ -57,14 +49,14 @@ export default function Home() {
 
       <div className='rounded-xl px-4 py-5 mx-5 bg-white'>
         <p className='text-xs text-gray-400 uppercase'>TOTAL BALANCE</p>
-        <p className='font-sans-2 mt-2 text-5xl text-blue-900'>&#8358; {totalBalance.toLocaleString('en-US')}</p>
+        <p className='font-sans-2 mt-2 text-5xl text-blue-900'>&#8358; {state.totalBalance.toLocaleString('en-US')}</p>
       </div>
 
       {/* Persons */}
       <p className='mx-5 mt-8 text-gray-700'>Persons</p>
       {}
       <div className='mt-3 mb-4'>
-        {persons && persons.length > 0 && persons.map(({ id, name, balance }) =>
+        {state.persons && state.persons.length > 0 && state.persons.map(({ id, name, balance }) =>
           <Person id={id} key={`person-${id}`} name={name} balance={balance} />
         )}
       </div>

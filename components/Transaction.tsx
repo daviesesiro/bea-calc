@@ -2,16 +2,17 @@ import React, { useState } from 'react'
 import Modal from './Modal';
 
 interface Props {
-    receiving: boolean;
+    type: string;
     title: string;
     description: string;
     amount: number
     transactionDate: Date
-
+    id: string
 }
 
-const Transaction: React.FC<Props> = ({ receiving, amount, description, transactionDate, title }) => {
+const Transaction: React.FC<Props> = ({ type, id, amount, description, transactionDate, title }) => {
     amount = amount || 0;
+    const receiving = type === 'Receiving'
     const Icon = receiving ? <svg width={24} height={14} viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M23 1L13.5 10.5L8.5 5.5L1 13" stroke="#6DFF0E" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
         <path d="M17 1H23V7" stroke="#6DFF0E" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
