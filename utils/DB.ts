@@ -109,7 +109,7 @@ export default {
       await db.put("persons", {
         ...person,
         balance:
-          type == "Sending" ? person.balance + amount : person.balance - amount,
+          type == "Sending" ? person.balance - amount : person.balance + amount,
       });
     });
   },
