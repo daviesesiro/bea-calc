@@ -76,9 +76,48 @@ export default {
     const db = await getDb();
     return db.get("persons", id);
   },
-  addTransaction: (amount: number) => {},
+  addTransaction: async ({
+    amount,
+    description,
+    title,
+    type,
+    personId,
+  }: {
+    personId: string;
+    amount: number;
+    description: string;
+    title: string;
+    type: string;
+  }) => {
+    const db = await getDb();
+    return new Promise(async () => {
+      const person = await db.get("persons", personId);
+
+      if (type == "Sending" && person.balance < amount)
+        throw Error("Insufficient funds");
+
+      await db.add("transactions", {
+        title,
+        amount,
+        type,
+        description,
+        dateAdded: new Date(),
+        personId,
+        id: uuid(),
+      });
+
+      await db.put("persons", {
+        ...person,
+        balance:
+          type == "Sending" ? person.balance + amount : person.balance - amount,
+      });
+    });
+  },
   getTotalBalance: async () => {
     const db = await getDb();
-    return db.get("totalBalance", 1);
+    return (await db.getAll("persons")).reduce(
+      (prev, cur) => prev + cur.balance,
+      0
+    );
   },
 };

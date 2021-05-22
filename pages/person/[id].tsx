@@ -35,8 +35,8 @@ const Index = () => {
 
     const handleOnChange = (e) => setformState(prev => ({ ...prev, [e.target.name]: e.target.name == 'amount' ? Number(e.target.value) : e.target.value }))
 
-    const handleSubmit = () => {
-
+    const handleSubmit = async () => {
+        await DB.addTransaction({ ...formState, personId: id as string })
     }
     return (
         <Layout >
@@ -68,6 +68,7 @@ const Index = () => {
                         <div className='mb-4'>
                             <label className='block mb-1' htmlFor="title">*Title</label>
                             <input onChange={handleOnChange}
+                                required
                                 value={formState.title}
                                 className='focus:outline-none w-full p-3 text-lg bg-gray-100 rounded-lg'
                                 placeholder="For cement" id='title' type="text" name='title' />
@@ -76,11 +77,12 @@ const Index = () => {
                             <label className='block mb-1' htmlFor="amount">*Amount</label>
                             <input onChange={handleOnChange}
                                 value={formState.amount}
+                                required
                                 className='focus:outline-none w-full p-3 text-lg bg-gray-100 rounded-lg'
                                 placeholder="1,000" id='amount' type="number" name='amount' />
                         </div>
                         <div className='mb-4'>
-                            <label className='block mb-1' htmlFor="description">*Descripton</label>
+                            <label className='block mb-1' htmlFor="description">Descripton</label>
                             <textarea onChange={handleOnChange}
                                 value={formState.description}
                                 className='focus:outline-none w-full p-3 text-lg bg-gray-100 rounded-lg'
@@ -88,11 +90,13 @@ const Index = () => {
                         </div>
                         <div className='mb-10 text-center align-middle'>
                             <input checked={formState.type == 'Receiving'}
-                                onChange={handleOnChange} className='w-4 h-4 mr-2' type="radio"
-                                name="type" id="type" value="Receiving" />Receiving
+                                onChange={handleOnChange} className='inline-block w-4 h-4 mr-2 align-middle' type="radio"
+                                required
+                                name="type" id="receiving" value="Receiving" /> <label htmlFor='receiving' className=' align-middle'> Receiving</label>
                             <input checked={formState.type == 'Sending'}
-                                onChange={handleOnChange} className='w-4 h-4 ml-4 mr-2' type="radio"
-                                name="type" id="type" value='Sending' />Sending
+                                onChange={handleOnChange} className='inline-block w-4 h-4 ml-8 mr-2 align-middle' type="radio"
+                                required
+                                name="type" id="sending" value='Sending' /> <label className=' align-middle' htmlFor='sending'>Sending</label>
                         </div>
 
                         <button onClick={handleSubmit} className='active:bg-blue-800 focus:outline-none block w-full py-3 text-sm font-normal text-white bg-blue-700 rounded-lg'>Add Transaction</button>
