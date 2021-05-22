@@ -16,19 +16,8 @@ const Index = () => {
     }
     const params = new URLSearchParams(router.asPath.split('?')[1])
     const personName = params.get('name')
-    const initialBalance = params.get('balance')
-
 
     const [showAddTran, setShowAddTran] = useState(false)
-    // useEffect(() => {
-    //     const init = async () => {
-    //         const balance = (await DB.getPersonById(id as string)).balance;
-    //         setBalance(balance)
-    //     }
-
-    //     init()
-    // }, [balance, setBalance])
-
 
     const [formState, setformState] = useState({ title: '', amount: 0, description: '', type: 'Receiving' })
     const { state, setState } = useStateContext()
@@ -38,28 +27,30 @@ const Index = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const transactionId = await DB.addTransaction({ ...formState, personId: id as string }) as string
-        setState(old => (
-            {
-                ...old,
-                totalBalance: old.persons.reduce((old, cur) => old + cur.balance, 0),
-                persons: old.persons.map(person => {
-                    if (person.id == id) {
-                        return {
-                            ...person,
-                            balance: formState.type == "Receiving" ?
-                                person.balance + formState.amount : person.balance - formState.amount
+        setState(old => {
+            return (
+                {
+                    ...old,
+                    totalBalance: formState.type === 'Receiving' ? old.totalBalance + formState.amount : old.totalBalance - formState.amount,
+                    persons: old.persons.map(person => {
+                        if (person.id == id) {
+                            return {
+                                ...person,
+                                balance: formState.type == "Receiving" ?
+                                    person.balance + formState.amount : person.balance - formState.amount
+                            }
                         }
+                        return person
+                    }),
+                    transactions: {
+                        ...old.transactions,
+                        [id as string]: [{ ...formState, dateAdded: new Date(), id: transactionId, personId: id as string },
+                        ...(old.transactions[id as string] || [])
+                        ]
                     }
-                    return person
-                }),
-                transactions: {
-                    ...old.transactions,
-                    [id as string]: [{ ...formState, dateAdded: new Date(), id: transactionId, personId: id as string },
-                    ...(old.transactions[id as string] || [])
-                    ]
                 }
-            }
-        ));
+            )
+        });
         setShowAddTran(false)
 
     }
@@ -69,10 +60,27 @@ const Index = () => {
                 icon: <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 5V19" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M5 12H19" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                ,
-                title: 'Add Person',
+                </svg>,
                 onPress: () => { setShowAddTran(prev => !prev) }
+            }, {
+                icon: <svg width={24} height={24} viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 4.2H2.6H15.4" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M5.00001 4.2V2.6C5.00001 2.17565 5.16858 1.76869 5.46864 1.46863C5.76869 1.16857 6.17566 1 6.60001 1H9.80001C10.2244 1 10.6313 1.16857 10.9314 1.46863C11.2314 1.76869 11.4 2.17565 11.4 2.6V4.2M13.8 4.2V15.4C13.8 15.8243 13.6314 16.2313 13.3314 16.5314C13.0313 16.8314 12.6244 17 12.2 17H4.20001C3.77566 17 3.36869 16.8314 3.06864 16.5314C2.76858 16.2313 2.60001 15.8243 2.60001 15.4V4.2H13.8Z" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                </svg>,
+                onPress: async () => {
+                    await DB.deletePerson(id as string)
+                    setState(old => {
+                        delete old.transactions[id as string]
+                        return {
+                            ...old,
+                            totalBalance: old.totalBalance - old.persons.find(x => x.id == id as string).balance,
+                            persons: old.persons.filter(x => x.id != id),
+                            transactions: old.transactions
+                        }
+                    })
+
+                    router.push('/')
+                }
             }]} />
 
             <div className='rounded-xl px-4 py-5 mx-5 bg-white'>

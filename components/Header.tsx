@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 interface Props {
     title: string
-    actions?: { icon: any; onPress: any; title: string }[]
+    actions?: { icon: any; onPress: any }[]
     home?: boolean
 }
 
@@ -27,7 +27,7 @@ const Header = ({ title, actions, home }: Props) => {
                 <div>
                     {actions && actions.length > 0 &&
                         actions.map((action, idx) =>
-                            <button className='focus:outline-none bg-gray-50 p-2 rounded-full' title={action.title} onClick={action.onPress} key={'action-' + idx}>{action.icon}</button>
+                            <button className='focus:outline-none p-1 ml-3 rounded-full' onClick={action.onPress} key={'action-' + idx}>{action.icon}</button>
                         )}
                 </div>
             </div>

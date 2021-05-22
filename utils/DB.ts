@@ -50,10 +50,12 @@ const getDb = async () =>
           autoIncrement: true,
         }).createIndex("name-idx", "name", { unique: true });
 
-        db.createObjectStore("transactions", {
+        const txStore = db.createObjectStore("transactions", {
           keyPath: "id",
           autoIncrement: true,
-        }).createIndex("title-idx", "title");
+        });
+        txStore.createIndex("title-idx", "title");
+        txStore.createIndex("personId-idx", "personId");
       }
     },
   });
@@ -141,5 +143,18 @@ export default {
       balance:
         type == "Sending" ? person.balance + amount : person.balance - amount,
     });
+  },
+  deletePerson: async (id: string) => {
+    const db = await getDb();
+    await db.delete("persons", id);
+
+    const tx = db.transaction("transactions", "readwrite");
+    const idx = tx.store.index("personId-idx");
+    let cursor = await idx.openCursor(id);
+
+    while (cursor) {
+      cursor.delete();
+      cursor = await cursor.continue();
+    }
   },
 };
