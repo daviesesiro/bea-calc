@@ -4,7 +4,7 @@ import Layout from '../components/Layout'
 import Modal from '../components/Modal'
 import Person from '../components/Person'
 import { useStateContext } from '../Context'
-import DB, { IPerson } from '../utils/DB'
+import DB from '../utils/DB'
 
 export default function Home() {
   const { state, setState } = useStateContext()
@@ -56,9 +56,9 @@ export default function Home() {
       <p className='mx-5 mt-8 text-gray-700'>Persons</p>
       {}
       <div className='mt-3 mb-4'>
-        {state.persons && state.persons.length > 0 && state.persons.map(({ id, name, balance }) =>
+        {(state.persons && state.persons.length > 0) ? state.persons.map(({ id, name, balance }) =>
           <Person id={id} key={`person-${id}`} name={name} balance={balance} />
-        )}
+        ) : <p className='mt-10 text-lg text-center'>No Person added yet</p>}
       </div>
 
       {isModalOpen &&

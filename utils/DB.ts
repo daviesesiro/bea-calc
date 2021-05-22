@@ -127,4 +127,19 @@ export default {
       0
     );
   },
+  deleteTransaction: async (
+    id: string,
+    type: string,
+    amount: number,
+    personId: string
+  ) => {
+    const db = await getDb();
+    await db.delete("transactions", id);
+    const person = await db.get("persons", personId);
+    await db.put("persons", {
+      ...person,
+      balance:
+        type == "Sending" ? person.balance + amount : person.balance - amount,
+    });
+  },
 };

@@ -84,12 +84,13 @@ const Index = () => {
             {/* Transaction */}
             <div className='mt-8'>
                 {
-                    txs && txs.length > 0 && txs.map(({ title, amount, type, id, description, dateAdded }) => (
+                    txs && txs.length > 0 && txs.map(({ title, personId, amount, type, id, description, dateAdded }) => (
                         <Transaction key={`tx-${id}`}
                             amount={amount} id={id}
                             title={title} type={type}
                             description={description}
-                            transactionDate={dateAdded} />))
+                            transactionDate={dateAdded}
+                            personId={personId} />))
                 }
 
             </div>
