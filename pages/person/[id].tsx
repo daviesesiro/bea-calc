@@ -91,15 +91,17 @@ const Index = () => {
             </div>
 
             {/* Transaction */}
+            <p className='mx-5 mt-8 text-gray-700'>Transactions</p>
+
             <div className='mt-8'>
                 {
-                    txs && txs.length > 0 && txs.map(({ title, personId, amount, type, id, description, dateAdded }) => (
+                    (txs && txs.length > 0) ? txs.map(({ title, personId, amount, type, id, description, dateAdded }) => (
                         <Transaction key={`tx-${id}`}
                             amount={amount} id={id}
                             title={title} type={type}
                             description={description}
                             transactionDate={dateAdded}
-                            personId={personId} />))
+                            personId={personId} />)) : <p className='mt-10 text-lg text-center'>No transactions done yet</p>
                 }
 
             </div>

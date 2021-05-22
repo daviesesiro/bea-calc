@@ -52,7 +52,7 @@ export default function Home() {
 
       {/* Persons */}
       <p className='mx-5 mt-8 text-gray-700'>Persons</p>
-      {}
+
       <div className='mt-3 mb-4'>
         {(state.persons && state.persons.length > 0) ? state.persons.map(({ id, name, balance }) =>
           <Person id={id} key={`person-${id}`} name={name} balance={balance} />

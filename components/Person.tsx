@@ -10,7 +10,7 @@ interface Props {
 const Person = ({ balance, name, id }: Props) => {
     balance = balance || 0;
     return (
-        <Link href={`/person/${id}?name=${name}&balance=${balance}`}>
+        <Link href={`/person/${id}?name=${name}`}>
             <a className='bg-person-gradient flex items-center px-3 py-3 mx-5 mb-4 rounded-lg'>
                 <div className='mr-5'>
                     <svg width={35} height={35} viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
