@@ -33,6 +33,7 @@ const Transaction: React.FC<Props> = ({ type, personId, id, amount, description,
             await DB.deleteTransaction(id, type, amount, personId)
             setState(old => ({
                 ...old,
+                totalBalance: old.persons.reduce((old, cur) => old + cur.balance, 0),
                 transactions: { ...old.transactions, [personId]: old.transactions[personId].filter(x => x.id != id) },
                 persons: old.persons.map(person => {
                     if (person.id == personId) {

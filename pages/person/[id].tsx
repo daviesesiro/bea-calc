@@ -55,7 +55,8 @@ const Index = () => {
                 transactions: {
                     ...old.transactions,
                     [id as string]: [{ ...formState, dateAdded: new Date(), id: transactionId, personId: id as string },
-                    ...old.transactions[id as string]]
+                    ...(old.transactions[id as string] || [])
+                    ]
                 }
             }
         ));
