@@ -28,7 +28,9 @@ const Transaction: React.FC<Props> = ({ type, id, amount, description, transacti
         <React.Fragment>
             <div className={`relative flex items-center justify-between p-4 rounded-lg mx-5 mb-4
              ${receiving ? 'bg-receive-transaction' : 'bg-send-transaction'} `}>
-                {transactionDate && <p className='top-2 right-2 absolute text-xs text-gray-200'>{`${transactionDate.getDay()}/${transactionDate.getDate()}/${transactionDate.getFullYear()}`}</p>}
+                {transactionDate && <p className='top-2 right-2 absolute text-xs text-gray-200'>
+                    {`${transactionDate.getDay()}/${transactionDate.getDate()}/${transactionDate.getFullYear()} ${transactionDate.getHours()}:${transactionDate.getMinutes()}`}
+                </p>}
                 <div className='mr-4'>{Icon}</div>
                 <div className='flex flex-col flex-1 text-white'>
                     <p className='text-sm'>{title}</p>

@@ -20,15 +20,14 @@ const Index = () => {
 
 
     const [showAddTran, setShowAddTran] = useState(false)
-    const [balance, setBalance] = useState<number>(Number(initialBalance))
-    useEffect(() => {
-        const init = async () => {
-            const balance = (await DB.getPersonById(id as string)).balance;
-            setBalance(balance)
-        }
+    // useEffect(() => {
+    //     const init = async () => {
+    //         const balance = (await DB.getPersonById(id as string)).balance;
+    //         setBalance(balance)
+    //     }
 
-        init()
-    }, [balance, setBalance])
+    //     init()
+    // }, [balance, setBalance])
 
 
     const [formState, setformState] = useState({ title: '', amount: 0, description: '', type: 'Receiving' })
@@ -36,20 +35,32 @@ const Index = () => {
     const txs = state.transactions[id as string]
     const handleOnChange = (e) => setformState(prev => ({ ...prev, [e.target.name]: e.target.name == 'amount' ? Number(e.target.value) : e.target.value }))
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         const transactionId = await DB.addTransaction({ ...formState, personId: id as string }) as string
-        console.log('hello 1')
-        setShowAddTran(false)
-        console.log('hello 2')
-        setState(old =>
-        ({
-            ...old,
-            transactions: {
-                ...old.transactions,
-                [id as string]: [{ ...formState, dateAdded: new Date(), id: transactionId, personId: id as string },
-                ...old.transactions[id as string]]
+        setState(old => (
+            {
+                ...old,
+                totalBalance: old.persons.reduce((old, cur) => old + cur.balance, 0),
+                persons: old.persons.map(person => {
+                    if (person.id == id) {
+                        return {
+                            ...person,
+                            balance: formState.type == "Receiving" ?
+                                person.balance + formState.amount : person.balance - formState.amount
+                        }
+                    }
+                    return person
+                }),
+                transactions: {
+                    ...old.transactions,
+                    [id as string]: [{ ...formState, dateAdded: new Date(), id: transactionId, personId: id as string },
+                    ...old.transactions[id as string]]
+                }
             }
-        }))
+        ));
+        setShowAddTran(false)
+
     }
     return (
         <Layout >
@@ -65,14 +76,20 @@ const Index = () => {
 
             <div className='rounded-xl px-4 py-5 mx-5 bg-white'>
                 <p className='text-xs text-gray-400 uppercase'>BALANCE</p>
-                <p className='font-sans-2 mt-2 text-5xl text-blue-900'>&#8358; {balance.toLocaleString('en-US')}</p>
+                <p className='font-sans-2 mt-2 text-5xl text-blue-900'>
+                    &#8358; {state.persons && state.persons.find(x => x.id == id) && state.persons.find(x => x.id == id).balance.toLocaleString('en-US')}
+                </p>
             </div>
 
             {/* Transaction */}
             <div className='mt-8'>
                 {
                     txs && txs.length > 0 && txs.map(({ title, amount, type, id, description, dateAdded }) => (
-                        <Transaction key={`tx-${id}`} amount={amount} id={id} title={title} type={type} description={description} transactionDate={dateAdded} />))
+                        <Transaction key={`tx-${id}`}
+                            amount={amount} id={id}
+                            title={title} type={type}
+                            description={description}
+                            transactionDate={dateAdded} />))
                 }
 
             </div>
@@ -80,7 +97,7 @@ const Index = () => {
 
             {showAddTran &&
                 <Modal closeModal={() => setShowAddTran(false)} subtitle={`For ${personName}`} title='Add a transaction' >
-                    <div>
+                    <form onSubmit={handleSubmit}>
                         <div className='mb-4'>
                             <label className='block mb-1' htmlFor="title">*Title</label>
                             <input onChange={handleOnChange}
@@ -94,6 +111,7 @@ const Index = () => {
                             <input onChange={handleOnChange}
                                 value={formState.amount}
                                 required
+                                min={50}
                                 className='focus:outline-none w-full p-3 text-lg bg-gray-100 rounded-lg'
                                 placeholder="1,000" id='amount' type="number" name='amount' />
                         </div>
@@ -115,8 +133,8 @@ const Index = () => {
                                 name="type" id="sending" value='Sending' /> <label className=' align-middle' htmlFor='sending'>Sending</label>
                         </div>
 
-                        <button onClick={handleSubmit} className='active:bg-blue-800 focus:outline-none block w-full py-3 text-sm font-normal text-white bg-blue-700 rounded-lg'>Add Transaction</button>
-                    </div>
+                        <button className='active:bg-blue-800 focus:outline-none block w-full py-3 text-sm font-normal text-white bg-blue-700 rounded-lg'>Add Transaction</button>
+                    </form>
                 </Modal>}
         </Layout>
     )
