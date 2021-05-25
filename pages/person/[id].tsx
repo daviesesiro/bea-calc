@@ -58,7 +58,7 @@ const Index = () => {
     return (
         <Layout >
             <Header title={`${(personName || '').split(' ')[0]}'s transactions`} actions={[{
-                icon: <svg width={20} height={20} className='text:text-gray-500' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                icon: <svg width={20} height={20} className='dark:text-gray-400' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 5V19" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M5 12H19" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                 </svg>,

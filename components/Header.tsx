@@ -11,7 +11,7 @@ const Header = ({ title, actions, home }: Props) => {
     const router = useRouter()
     return (
         <React.Fragment>
-            <div className='rounded-b-xl dark:bg-gray-800 fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-2 bg-white'>
+            <div className='rounded-b-xl dark:bg-gray-800 fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 bg-white'>
                 {!home &&
                     <button className='focus:outline-none p-2 mr-2' onClick={() => router.push('/')}>
                         <svg stroke='currentColor' className='dark:text-gray-500' width={16} height={16} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +21,7 @@ const Header = ({ title, actions, home }: Props) => {
 
                     </button>
                 }
-                <h1 className='dark:text-gray-200 flex-1 font-sans capitalize'>
+                <h1 className='dark:text-gray-200 flex-1 font-sans text-lg capitalize'>
                     {title}
                 </h1>
                 <div>

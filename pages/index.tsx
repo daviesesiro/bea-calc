@@ -53,7 +53,7 @@ export default function Home() {
       <div className='mt-3 mb-4'>
         {(state.persons && state.persons.length > 0) ? state.persons.map(({ id, name, balance }) =>
           <Person id={id} key={`person-${id}`} name={name} balance={balance} />
-        ) : <p className='mt-10 text-lg text-center'>No Person added yet</p>}
+        ) : <p className='dark:text-gray-300 mt-10 text-lg text-center'>No Person added yet</p>}
       </div>
 
       {isModalOpen &&
