@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Balance from '../components/Balance'
 import Header from '../components/Header'
 import Layout from '../components/Layout'
 import Modal from '../components/Modal'
@@ -37,21 +38,17 @@ export default function Home() {
   return (
     <Layout>
       <Header home title="Beauty Calculator" actions={[{
-        icon: <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 5V19" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M5 12H19" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+        icon: <svg width={20} height={20} className='dark:text-gray-500' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 5V19" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M5 12H19" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
         </svg>,
         onPress: () => { setModalState(prev => !prev) }
       }]} />
 
-
-      <div className='rounded-xl px-4 py-5 mx-5 bg-white'>
-        <p className='text-xs text-gray-400 uppercase'>TOTAL BALANCE</p>
-        <p className='font-sans-2 mt-2 text-5xl text-blue-900'>&#8358; {state.totalBalance.toLocaleString('en-US')}</p>
-      </div>
+      <Balance title="TOTAL BALANCE" balance={state.totalBalance} />
 
       {/* Persons */}
-      <p className='mx-5 mt-8 text-gray-700'>Persons</p>
+      <p className='dark:text-gray-400 mx-5 mt-8 text-gray-700'>Persons</p>
 
       <div className='mt-3 mb-4'>
         {(state.persons && state.persons.length > 0) ? state.persons.map(({ id, name, balance }) =>
@@ -63,11 +60,11 @@ export default function Home() {
         <Modal closeModal={() => setModalState(false)} title='Add a new Person' >
           <div>
             <div className='mb-10'>
-              <label className='block mb-1' htmlFor="person">Name</label>
+              <label className='dark:text-gray-200 block mb-1' htmlFor="person">Name</label>
               <input
                 value={personName}
                 onChange={(e) => { e.preventDefault(); setPersonName(e.target.value) }}
-                className='focus:outline-none w-full p-3 text-lg bg-gray-100 rounded-lg'
+                className='focus:outline-none dark:bg-gray-300 w-full p-3 text-lg bg-gray-100 rounded-lg'
                 placeholder="Obakpolor Beauty" id='person' type="text" name='person' />
               {error.length > 0 && <p className='mt-1 text-xs text-center text-red-600'>{error}</p>}
             </div>
