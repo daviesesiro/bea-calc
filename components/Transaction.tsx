@@ -80,19 +80,19 @@ const Transaction: React.FC<Props> = ({ type, personId, id, amount, description,
                 <Modal closeModal={() => setShowModal(false)} title="View transaction detail for" subtitle={`For ${title}`}>
                     <div className='mb-4'>
                         <p className='block mb-1 text-sm text-gray-500'>Title</p>
-                        <p className='text-lg'>{title}</p>
+                        <p className='dark:text-gray-200 text-lg'>{title}</p>
                     </div>
                     <div className='mb-4'>
                         <p className='block mb-1 text-sm text-gray-500'>Amount</p>
-                        <p className='text-lg'>{amount}</p>
+                        <p className='dark:text-gray-200 text-lg'>{amount}</p>
                     </div>
                     <div className='mb-4'>
                         <p className='block mb-1 text-sm text-gray-500'>Type</p>
-                        <p className='text-lg'>{receiving ? "Receiving" : "Sending"}</p>
+                        <p className='dark:text-gray-200 text-lg'>{receiving ? "Receiving" : "Sending"}</p>
                     </div>
                     <div className='mb-4'>
                         <p className='block mb-1 text-sm text-gray-500'>Description</p>
-                        <p className='text-lg'>{description ? description : "None"}</p>
+                        <p className='dark:text-gray-200 text-lg'>{description ? description : "None"}</p>
                     </div>
                 </Modal>
             }
