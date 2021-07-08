@@ -170,7 +170,7 @@ const Transaction: React.FC<Props> = ({
       {showModal && (
         <Modal
           closeModal={() => setShowModal(false)}
-          title="View transaction detail for"
+          title="Transaction detail"
           subtitle={`For ${title}`}
         >
           <div className="mb-4">
