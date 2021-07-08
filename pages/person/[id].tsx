@@ -89,6 +89,8 @@ const Index = () => {
     });
     setShowAddTran(false);
   };
+
+  const formatter = new Intl.NumberFormat("en-us");
   return (
     <Layout>
       <Header
@@ -236,7 +238,7 @@ const Index = () => {
               </label>
               <input
                 onChange={handleOnChange}
-                value={formState.amount.toLocaleString()}
+                value={formatter.format(formState.amount)}
                 required
                 className="focus:outline-none dark:bg-gray-300 w-full p-3 text-lg bg-gray-100 rounded-lg"
                 placeholder="1,000"
