@@ -32,9 +32,9 @@ const Index = () => {
 
     if (name == "amount") {
       value = value.replaceAll(",", "");
-      //   if (value.length !== 0 && isNaN(parseInt(value[value.length - 1]))) {
-      //     return;
-      //   }
+      if (value.length !== 0 && isNaN(Number(value[value.length - 1]))) {
+        return;
+      }
     }
 
     setformState((prev) => ({
