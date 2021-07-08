@@ -28,14 +28,13 @@ const Index = () => {
   const { state, setState } = useStateContext();
   const txs = state.transactions[id as string];
   const handleOnChange = (e) => {
-    let { name, value } = e.target;
+    let { name, value } = e.target as { name: string; value: string };
 
     if (name == "amount") {
-      value = value.replaceAll(",", "");
-      if (value.length !== 0 && isNaN(Number(value[value.length - 1]))) {
-        return;
-      }
+      const allAlphabet = /[a-z,]/gi;
+      value = value.replace(allAlphabet, "");
     }
+    console.log(value);
 
     setformState((prev) => ({
       ...prev,
