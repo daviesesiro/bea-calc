@@ -12,9 +12,8 @@ const Metas = () => <Head>
     <link rel="icon" href="/favicon.ico" />
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="#0B4D81" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Beauty Calculator" />
-    <meta name='apple-mobile-web-app-status-bar-style' content='default' />
 
     <link rel="apple-touch-icon" href="/android-launchericon-72-72.png" sizes="72x72" />
     <link rel="apple-touch-icon" href="/android-launchericon-96-96.png" sizes="96x96" />
