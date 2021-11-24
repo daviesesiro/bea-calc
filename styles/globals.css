@@ -5,5 +5,5 @@
 @tailwind utilities;
 
 body{
-  @apply dark:bg-gray-800 bg-gray-200;
+  @apply dark:bg-gray-800 bg-gray-500;
 }
